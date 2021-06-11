@@ -80,7 +80,7 @@ func InitDB(conf request.InitDB) error {
 	}
 
 	if conf.Host == "" {
-		conf.Host = "127.0.0.1"
+		conf.Host = "177.7.0.13"
 	}
 
 	if conf.Port == "" {
