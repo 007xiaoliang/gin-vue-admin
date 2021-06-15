@@ -7,6 +7,9 @@ networks:
       config:
         - subnet: '177.7.0.0/16'
 
+environment:
+  - TZ=Asia/Shanghai
+
 services:
   web:
     build:
