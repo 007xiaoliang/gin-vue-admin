@@ -209,7 +209,7 @@ export default {
           type: "success",
           message: "删除成功"
         });
-        if (this.tableData.length == 1) {
+        if (this.tableData.length == 1 && this.page > 1 ) {
           this.page--;
         }
         this.getTableData();
@@ -247,7 +247,7 @@ export default {
     }
   },
   created() {
-    this.searchInfo.sysDictionaryID = this.$route.params.id;
+    this.searchInfo.sysDictionaryID = Number(this.$route.params.id);
     this.getTableData();
   }
 };

@@ -146,6 +146,11 @@ func CreateTemp(autoCode model.AutoCodeStruct) (err error) {
 		if err != nil {
 			return err
 		}
+		if global.GVA_CONFIG.AutoCode.TransferRestart {
+			go func() {
+				_ = utils.Reload()
+			}()
+		}
 		return errors.New("创建代码成功并移动文件成功")
 	} else { // 打包
 		if err := utils.ZipFiles("./ginvueadmin.zip", fileList, ".", "."); err != nil {
@@ -320,6 +325,11 @@ func AutoCreateApi(a *model.AutoCodeStruct) (err error) {
 }
 
 func getNeedList(autoCode *model.AutoCodeStruct) (dataList []tplData, fileList []string, needMkdir []string, err error) {
+	// 去除所有空格
+	utils.TrimSpace(autoCode)
+	for _, field := range autoCode.Fields {
+		utils.TrimSpace(field)
+	}
 	// 获取 basePath 文件夹下所有tpl文件
 	tplFileList, err := GetAllTplFile(basePath, nil)
 	if err != nil {
